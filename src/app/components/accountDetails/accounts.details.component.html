@@ -1,0 +1,45 @@
+
+<div class="panel panel-default">
+<div class= "panel-body">
+    <label for="custId">Enter Customer Id : </label> <input id="custId" type="number" [(ngModel)]="custId"/> <button class="btn btn-default" (click)="getAccountDetails()">Show Details</button>
+</div>
+<div class= "panel-body"  *ngIf="custDetails !== undefined">
+        <div class="table-responsive table-bordered">
+<table class="table ">
+    <tr><td>Customer Id</td><td>{{custDetails.custId}}</td></tr>
+    <tr><td>Name </td><td>{{custDetails.firstName + ' ' + custDetails.lastName}}</td></tr>
+    <tr><td>Created on </td><td>{{custDetails.createDate}}</td></tr>
+    <tr><td>Last Updated on </td><td>{{custDetails.updateDate}}</td></tr>
+    <tr  *ngIf="custDetails.accountDetailsWithTransactions !== undefined" ><td colspan="2">
+        <table class ="table table-bordered" *ngFor=" let account of custDetails.accountDetailsWithTransactions">
+                <tr><td>Account No</td><td>{{account.accountId}}</td></tr>
+                <tr><td>Balance</td><td>{{account.balance}}</td></tr>
+                <tr *ngIf="account.txList[0] !== undefined"><td colspan="2">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td>Transaction Id</td>
+                                <td>Value</td>
+                                <td>Type</td>
+                                <td>Balance</td> 
+                                <td>Date</td>
+                            </tr>
+                        <tbody>
+                            <tr *ngFor="let tx of account.txList">
+                                    <td>{{tx.transactionId}}</td>
+                                    <td>{{tx.value}}</td>
+                                    <td>{{tx.type}}</td>
+                                    <td>{{tx.balance}}</td>
+                                    <td>{{tx.txDate}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td></tr>
+        </table>
+        
+    </td></tr>
+</table>
+
+</div>
+</div>
+</div>
